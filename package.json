@@ -1,6 +1,6 @@
 {
   "name": "jadcrypt-kms",
-  "version": "0.8.0",
+  "version": "0.6.0",
   "description": "",
   "author": "Tapio Rautonen",
   "license": "MIT",
@@ -9,31 +9,38 @@
   "bin": "bin/jadcrypt-kms",
   "scripts": {
     "prebuild": "rimraf dist bin",
-    "build": "npm-run-all build:cjs build:es6 build:cli",
+    "build": "npm-run-all build:*",
     "build:cjs": "rollup -c rollup.config.cjs.js",
     "build:es6": "rollup -c rollup.config.es6.js",
     "build:cli": "rollup -c rollup.config.cli.js",
-    "pretest": "rollup -c rollup.config.test.js",
-    "test": "mocha target/test_bundle.js",
-    "lint": "eslint 'lib/**'"
+    "test": "mocha --compilers js:babel-core/register --require babel-polyfill test/**/*.spec.js",
+    "lint": "eslint 'lib/**' 'test/**'",
+    "watch": "chokidar 'lib/*.js' -c 'npm run build'",
+    "dev": "npm-run-all build --parallel watch"
   },
   "devDependencies": {
     "babel": "^6.5.2",
+    "babel-cli": "^6.16.0",
     "babel-plugin-external-helpers": "^6.8.0",
-    "babel-preset-es2015": "^6.14.0",
-    "babel-preset-es2016": "^6.11.3",
-    "eslint": "^3.4.0",
-    "eslint-config-airbnb-base": "^7.0.0",
-    "eslint-plugin-import": "^1.14.0",
-    "mocha": "^3.0.2",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-tape-runner": "^2.0.1",
+    "chai": "^3.5.0",
+    "chokidar": "^1.6.0",
+    "chokidar-cli": "^1.2.0",
+    "eslint": "^3.7.1",
+    "eslint-config-airbnb-base": "^8.0.0",
+    "eslint-plugin-import": "^1.16.0",
+    "mocha": "^3.1.2",
     "npm-run-all": "^3.1.0",
     "rimraf": "^2.5.4",
-    "rollup": "^0.34.13",
+    "rollup": "^0.36.1",
     "rollup-plugin-babel": "^2.6.1",
     "rollup-plugin-multi-entry": "^2.0.1"
   },
   "dependencies": {
-    "aws-sdk": "^2.5.6",
-    "yargs": "^5.0.0"
+    "aws-sdk": "^2.6.7",
+    "yargs": "^6.0.0"
   }
 }

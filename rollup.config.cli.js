@@ -7,6 +7,7 @@ export default {
   banner: '#!/usr/bin/env node',
   plugins: [
     babel({
+      babelrc: false,
       exclude: 'node_modules/**',
       presets: [['es2015', { modules: false }]],
       plugins: ['external-helpers']
